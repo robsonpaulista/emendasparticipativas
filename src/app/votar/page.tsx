@@ -56,7 +56,9 @@ export default function Votar() {
 
     try {
       setError(null);
-      await voteService.submitVote(projectId, voterId);
+      // TODO: Obter editalId do projeto selecionado
+      const editalId = 'temp_edital_id'; // Temporário até implementar a lógica completa
+      await voteService.submitVote(projectId, voterId, editalId);
       setVotedProjects((prev) => new Set([...prev, projectId]));
       setProjects((prev) =>
         prev.map((p) => (p.id === projectId ? { ...p, votes: p.votes + 1 } : p))
