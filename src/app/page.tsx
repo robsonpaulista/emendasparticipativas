@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   AcademicCapIcon,
   ArrowRightIcon,
@@ -21,10 +22,12 @@ export default function HomePage() {
           <div className="relative bg-white lg:bg-gradient-to-br lg:from-blue-50 lg:to-blue-100 rounded-b-3xl overflow-hidden lg:min-h-[600px]">
             {/* Background Image com Overlay - Apenas Desktop */}
             <div className="absolute inset-0 hidden lg:block">
-              <img
+              <Image
                 src="/CAPA1.png"
                 alt="Emendas Participativas"
-                className="w-full h-full object-cover object-center opacity-100"
+                fill
+                className="object-cover object-center opacity-100"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-white/70"></div>
             </div>
@@ -35,10 +38,12 @@ export default function HomePage() {
               <div className="block lg:hidden">
                 {/* Imagem no Mobile */}
                 <div className="h-48 sm:h-56 relative overflow-hidden rounded-t-3xl">
-                  <img
+                  <Image
                     src="/CAPA1.png"
                     alt="Emendas Participativas"
-                    className="w-full h-full object-cover object-center"
+                    fill
+                    className="object-cover object-center"
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
                 </div>

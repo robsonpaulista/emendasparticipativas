@@ -3,7 +3,6 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
-  QuestionMarkCircleIcon,
 } from '@heroicons/react/24/outline';
 
 interface IconProps {
