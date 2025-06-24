@@ -1,14 +1,16 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
-import { z } from 'zod'
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { z } from 'zod';
 
 const projectSchema = z.object({
   title: z.string().min(1, 'Título é obrigatório'),
   description: z.string().min(1, 'Descrição é obrigatória'),
+  organization: z.string().min(1, 'Organização é obrigatória'),
   category: z.string().min(1, 'Categoria é obrigatória'),
   budget: z.number().min(0, 'Orçamento deve ser maior que zero'),
   location: z.string().min(1, 'Localização é obrigatória'),
-})
+  editalId: z.string().min(1, 'ID do edital é obrigatório'),
+});
 
 export async function GET() {
   try {
@@ -23,7 +25,7 @@ export async function GET() {
       orderBy: {
         createdAt: 'desc',
       },
-    })
+    });
 
     const formattedProjects = projects.map((project) => ({
       id: project.id,
@@ -34,42 +36,42 @@ export async function GET() {
       location: project.location,
       status: project.status,
       votes: project._count.votes,
-    }))
+    }));
 
-    return NextResponse.json(formattedProjects)
+    return NextResponse.json(formattedProjects);
   } catch (error) {
-    console.error('Erro ao buscar projetos:', error)
+    console.error('Erro ao buscar projetos:', error);
     return NextResponse.json(
       { error: 'Erro ao buscar projetos' },
       { status: 500 }
-    )
+    );
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const validatedData = projectSchema.parse(body)
+    const body = await request.json();
+    const validatedData = projectSchema.parse(body);
 
     const project = await prisma.project.create({
       data: {
         ...validatedData,
-        status: 'ACTIVE',
+        status: 'INSCRITO',
       },
-    })
+    });
 
-    return NextResponse.json(project)
+    return NextResponse.json(project);
   } catch (error) {
-    console.error('Erro ao criar projeto:', error)
+    console.error('Erro ao criar projeto:', error);
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { error: 'Dados inválidos', details: error.errors },
         { status: 400 }
-      )
+      );
     }
     return NextResponse.json(
       { error: 'Erro ao criar projeto' },
       { status: 500 }
-    )
+    );
   }
-} 
+}

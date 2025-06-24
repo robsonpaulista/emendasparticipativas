@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
 
 export async function GET() {
   try {
     const projects = await prisma.project.findMany({
       where: {
-        status: 'ACTIVE',
+        status: 'APROVADO_TECNICA',
       },
       include: {
         _count: {
@@ -17,7 +17,7 @@ export async function GET() {
       orderBy: {
         createdAt: 'desc',
       },
-    })
+    });
 
     const formattedProjects = projects.map((project) => ({
       id: project.id,
@@ -27,14 +27,14 @@ export async function GET() {
       budget: project.budget,
       location: project.location,
       votes: project._count.votes,
-    }))
+    }));
 
-    return NextResponse.json(formattedProjects)
+    return NextResponse.json(formattedProjects);
   } catch (error) {
-    console.error('Erro ao buscar projetos:', error)
+    console.error('Erro ao buscar projetos:', error);
     return NextResponse.json(
       { error: 'Erro ao buscar projetos' },
       { status: 500 }
-    )
+    );
   }
-} 
+}
