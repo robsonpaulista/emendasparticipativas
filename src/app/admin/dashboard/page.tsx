@@ -1,10 +1,12 @@
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma';
+
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
   const [projetosCount, votosCount] = await Promise.all([
     prisma.project.count(),
     prisma.vote.count(),
-  ])
+  ]);
 
   return (
     <div>
@@ -15,14 +17,18 @@ export default async function DashboardPage() {
 
       <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2">
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-          <dt className="truncate text-sm font-medium text-gray-500">Total de Projetos</dt>
+          <dt className="truncate text-sm font-medium text-gray-500">
+            Total de Projetos
+          </dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
             {projetosCount}
           </dd>
         </div>
 
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6">
-          <dt className="truncate text-sm font-medium text-gray-500">Total de Votos</dt>
+          <dt className="truncate text-sm font-medium text-gray-500">
+            Total de Votos
+          </dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
             {votosCount}
           </dd>
@@ -61,5 +67,5 @@ export default async function DashboardPage() {
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
