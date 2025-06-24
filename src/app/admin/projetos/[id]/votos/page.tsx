@@ -1,19 +1,19 @@
-import { getServerSession } from 'next-auth'
-import { prisma } from '@/lib/prisma'
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 interface Props {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default async function VotosProjetoPage({ params }: Props) {
-  const session = await getServerSession()
+  const session = await getServerSession();
 
   if (!session) {
-    redirect('/admin/login')
+    redirect('/admin/login');
   }
 
   const [projeto, votos] = await Promise.all([
@@ -30,10 +30,10 @@ export default async function VotosProjetoPage({ params }: Props) {
         createdAt: 'desc',
       },
     }),
-  ])
+  ]);
 
   if (!projeto) {
-    redirect('/admin/projetos')
+    redirect('/admin/projetos');
   }
 
   return (
@@ -72,7 +72,7 @@ export default async function VotosProjetoPage({ params }: Props) {
                 <div className="mt-2 sm:flex sm:justify-between">
                   <div className="sm:flex">
                     <div className="flex items-center text-sm text-gray-500">
-                      Usuário: {voto.userId}
+                      ID do Eleitor: {voto.voterId}
                     </div>
                   </div>
                   <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
@@ -85,5 +85,5 @@ export default async function VotosProjetoPage({ params }: Props) {
         </ul>
       </div>
     </div>
-  )
-} 
+  );
+}
