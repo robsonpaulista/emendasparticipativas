@@ -373,66 +373,72 @@ export default function HeroCarousel() {
                       key={`timeline-${currentSlide}`}
                       className="space-y-5 animate-fade-in-delay-4"
                     >
-                      {currentSlideData.timeline.map((item, index) => (
-                        <div
-                          key={`${item.title}-${currentSlide}`}
-                          className="flex items-center gap-4 animate-fade-in"
-                          style={{ animationDelay: `${1.2 + index * 0.1}s` }}
-                        >
+                      {currentSlideData.timeline.map((item, index) => {
+                        const isLastItem =
+                          index === currentSlideData.timeline!.length - 1;
+                        return (
                           <div
-                            className={`relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
-                              item.status === 'completed'
-                                ? 'border-green-500 bg-green-500/10 timeline-dot-completed'
-                                : item.status === 'current'
-                                  ? 'border-blue-500 bg-blue-500/10 timeline-dot-current'
-                                  : 'border-white/30 bg-white/5'
-                            }`}
+                            key={`${item.title}-${currentSlide}`}
+                            className="flex items-center gap-4 animate-fade-in"
+                            style={{ animationDelay: `${1.2 + index * 0.1}s` }}
                           >
-                            <item.icon
-                              className={`w-6 h-6 ${
+                            <div
+                              className={`relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                                 item.status === 'completed'
-                                  ? 'text-green-500'
+                                  ? 'border-green-500 bg-green-500/10 timeline-dot-completed'
                                   : item.status === 'current'
-                                    ? 'text-blue-500'
-                                    : 'text-white/50'
-                              }`}
-                            />
-                            {index < currentSlideData.timeline.length - 1 && (
-                              <div className="absolute top-[calc(100%+1px)] left-1/2 -translate-x-1/2 w-0.5 h-8 overflow-hidden bg-white/10">
-                                <div
-                                  className={`w-full ${
-                                    item.status === 'completed'
-                                      ? 'bg-green-500 timeline-line-progress'
-                                      : 'bg-white/20'
-                                  }`}
-                                  style={{
-                                    height: '100%',
-                                    transformOrigin: 'top',
-                                    animationDelay: `${0.3 + index * 0.2}s`,
-                                  }}
-                                />
-                              </div>
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <h4
-                              className={`text-lg font-medium ${
-                                item.status === 'completed'
-                                  ? 'text-green-500'
-                                  : item.status === 'current'
-                                    ? 'text-blue-500'
-                                    : 'text-white/50'
+                                    ? 'border-blue-500 bg-blue-500/10 timeline-dot-current'
+                                    : 'border-white/30 bg-white/5'
                               }`}
                             >
-                              {item.title}
-                            </h4>
-                            <p className="text-sm text-white/70">{item.date}</p>
-                            <p className="text-sm text-white/60 mt-1">
-                              {item.description}
-                            </p>
+                              <item.icon
+                                className={`w-6 h-6 ${
+                                  item.status === 'completed'
+                                    ? 'text-green-500'
+                                    : item.status === 'current'
+                                      ? 'text-blue-500'
+                                      : 'text-white/50'
+                                }`}
+                              />
+                              {!isLastItem && (
+                                <div className="absolute top-[calc(100%+1px)] left-1/2 -translate-x-1/2 w-0.5 h-8 overflow-hidden bg-white/10">
+                                  <div
+                                    className={`w-full ${
+                                      item.status === 'completed'
+                                        ? 'bg-green-500 timeline-line-progress'
+                                        : 'bg-white/20'
+                                    }`}
+                                    style={{
+                                      height: '100%',
+                                      transformOrigin: 'top',
+                                      animationDelay: `${0.3 + index * 0.2}s`,
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <h4
+                                className={`text-lg font-medium ${
+                                  item.status === 'completed'
+                                    ? 'text-green-500'
+                                    : item.status === 'current'
+                                      ? 'text-blue-500'
+                                      : 'text-white/50'
+                                }`}
+                              >
+                                {item.title}
+                              </h4>
+                              <p className="text-sm text-white/70">
+                                {item.date}
+                              </p>
+                              <p className="text-sm text-white/60 mt-1">
+                                {item.description}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
