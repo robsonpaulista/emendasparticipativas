@@ -256,21 +256,39 @@ export default function HeroCarousel() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center">
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-8">
           <div
-            className={`grid lg:grid-cols-2 gap-12 ${currentSlide === 0 ? 'items-center' : 'items-start'}`}
+            className={`grid lg:grid-cols-2 gap-6 md:gap-12 ${currentSlide === 0 ? 'items-center' : 'items-start'}`}
           >
+            {/* Image on the left side for the first slide */}
+            {currentSlide === 0 && (
+              <div className="block relative h-[300px] md:h-[600px] lg:h-[800px] w-full animate-fade-in-right order-1 lg:order-2">
+                <Image
+                  src="/capanova2.png"
+                  alt="Emendas Participativas"
+                  fill
+                  className="object-contain transform scale-90 md:scale-100"
+                  priority
+                  quality={100}
+                  sizes="(max-width: 768px) 100vw, (min-width: 1024px) 50vw"
+                />
+              </div>
+            )}
+
             {/* Text Content */}
             <div
               key={currentSlide}
-              className="text-white space-y-8 animate-slide-in-left"
+              className="text-white space-y-4 md:space-y-8 animate-slide-in-left order-2 lg:order-1 pb-16 md:pb-0"
             >
               {/* Title */}
-              <div key={`title-${currentSlide}`} className="space-y-2">
-                <h1 className="text-3xl font-bold leading-tight animate-fade-in">
+              <div
+                key={`title-${currentSlide}`}
+                className="space-y-1 md:space-y-2"
+              >
+                <h1 className="text-2xl md:text-3xl font-bold leading-tight animate-fade-in">
                   {currentSlideData.title}
                 </h1>
-                <h2 className="text-lg font-bold text-blue-600 animate-fade-in-delay">
+                <h2 className="text-base md:text-lg font-bold text-blue-600 animate-fade-in-delay">
                   {currentSlideData.subtitle}
                 </h2>
               </div>
@@ -278,7 +296,7 @@ export default function HeroCarousel() {
               {/* Description */}
               <p
                 key={`description-${currentSlide}`}
-                className="text-lg sm:text-xl text-white/90 max-w-2xl leading-relaxed animate-fade-in-delay-2"
+                className="text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed animate-fade-in-delay-2"
               >
                 {currentSlideData.description}
               </p>
@@ -287,7 +305,7 @@ export default function HeroCarousel() {
               {currentSlideData.features && (
                 <div
                   key={`features-${currentSlide}`}
-                  className="space-y-3 animate-fade-in-delay-3"
+                  className="space-y-2 md:space-y-3 animate-fade-in-delay-3"
                 >
                   {currentSlideData.features.map((feature, index) => (
                     <div
@@ -295,8 +313,8 @@ export default function HeroCarousel() {
                       className="flex items-center gap-3 animate-fade-in"
                       style={{ animationDelay: `${0.8 + index * 0.1}s` }}
                     >
-                      <feature.icon className="w-5 h-5 text-blue-500" />
-                      <span className="text-white/90 font-medium">
+                      <feature.icon className="w-4 md:w-5 h-4 md:h-5 text-blue-500" />
+                      <span className="text-sm md:text-base text-white/90 font-medium">
                         {feature.text}
                       </span>
                     </div>
@@ -311,7 +329,7 @@ export default function HeroCarousel() {
               >
                 <Link
                   href={currentSlideData.primaryAction.href}
-                  className="relative inline-flex items-center justify-center px-6 py-3 bg-transparent font-medium rounded-lg hover:bg-blue-600/10 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-blue-500/25 text-sm overflow-hidden group border-spinning-button"
+                  className="relative inline-flex items-center justify-center px-4 md:px-6 py-2.5 md:py-3 bg-transparent font-medium rounded-lg hover:bg-blue-600/10 hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-blue-500/25 text-xs md:text-sm overflow-hidden group border-spinning-button"
                 >
                   <span
                     className="button-text opacity-0"
@@ -323,7 +341,7 @@ export default function HeroCarousel() {
                     {currentSlideData.primaryAction.text}
                   </span>
                   <ArrowRightIcon
-                    className="ml-2 w-4 h-4 button-icon opacity-0"
+                    className="ml-2 w-3 md:w-4 h-3 md:h-4 button-icon opacity-0"
                     style={{
                       animation: 'text-appear 0.5s ease-out 3s forwards',
                       color: '#60a5fa',
@@ -333,28 +351,13 @@ export default function HeroCarousel() {
                 {currentSlideData.secondaryAction && (
                   <Link
                     href={currentSlideData.secondaryAction.href}
-                    className="relative inline-flex items-center justify-center px-6 py-3 bg-transparent font-medium rounded-lg hover:bg-white/5 transition-all duration-300 text-sm text-white/70 hover:text-white"
+                    className="relative inline-flex items-center justify-center px-4 md:px-6 py-2.5 md:py-3 bg-transparent font-medium rounded-lg hover:bg-white/5 transition-all duration-300 text-xs md:text-sm text-white/70 hover:text-white"
                   >
                     {currentSlideData.secondaryAction.text}
                   </Link>
                 )}
               </div>
             </div>
-
-            {/* Image on the right side for the first slide */}
-            {currentSlide === 0 && (
-              <div className="hidden lg:block relative h-[800px] w-full animate-fade-in-right -ml-12">
-                <Image
-                  src="/capanova2.png"
-                  alt="Emendas Participativas"
-                  fill
-                  className="object-contain transform -translate-x-12"
-                  priority
-                  quality={100}
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-              </div>
-            )}
 
             {/* Timeline on the right side */}
             {currentSlideData.timeline &&
